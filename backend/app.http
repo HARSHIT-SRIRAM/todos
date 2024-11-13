@@ -1,0 +1,66 @@
+### Register a user
+POST http://localhost:5000/user/register
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "password": "securepassword",
+  "email": "john_doe@example.com"
+}
+
+### Login a user (to get token)
+POST http://localhost:5000/user/login
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "password": "securepassword"
+}
+
+### Token setting
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzM0NjA1YTZiY2VhNDg2ZGMzZGFiN2EiLCJ1c2VybmFtZSI6ImpvaG5fZG9lIiwiaWF0IjoxNzMxNDg1NzkwLCJleHAiOjE3MzQwNzc3OTB9.l8b_AqKrdz2F9xy8G0Cbcx-z8RNfWON-aebc3TGJsSo
+
+### Create a new task (auth token required)
+POST http://localhost:5000/task/
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Finish Homework",
+  "notes": "Complete the math assignment.",
+  "dueDate": "2024-11-15",
+  "priority": "high",
+  "status": "pending",
+  "type": "education"
+}
+
+### Get all tasks (auth token required)
+GET http://localhost:5000/tasks
+Authorization: Bearer {{token}}
+
+### Update task status (auth token required)
+PATCH http://localhost:5000/tasks/60c72b2f5f1b2b001f32f3be/status
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "status": "in progress"
+}
+
+### Update task details (auth token required)
+PUT http://localhost:5000/tasks/60c72b2f5f1b2b001f32f3be
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Complete Homework",
+  "notes": "Complete math and science assignments.",
+  "dueDate": "2024-11-16",
+  "priority": "medium",
+  "status": "in progress",
+  "type": "education"
+}
+
+### Delete a task (auth token required)
+DELETE http://localhost:5000/tasks/60c72b2f5f1b2b001f32f3be
+Authorization: Bearer {{token}}
